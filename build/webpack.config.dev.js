@@ -9,7 +9,7 @@ export default {
 
   entry: {
     app: [
-      `webpack-dev-server/client?http://lvh.me:${appConfig.devPort}`,
+      `webpack-dev-server/client?http://${appConfig.devHost}:${appConfig.devPort}`,
       'webpack/hot/only-dev-server',
       './build/bundles/app.js'
     ],
@@ -19,7 +19,7 @@ export default {
   output: {
     path      : path.join(process.cwd(), 'public', 'assets'),
     filename  : '[name].js',
-    publicPath: `http://lvh.me:${appConfig.devPort}/assets`
+    publicPath: `http://${appConfig.devHost}:${appConfig.devPort}/assets`
   },
 
   resolve: {

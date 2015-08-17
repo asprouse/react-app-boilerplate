@@ -1,21 +1,20 @@
 /* eslint no-process-env: 0 */
 
-let config = {};
+export default {
+    env: process.env.NODE_ENV  || 'development',
 
-config.env          = process.env.NODE_ENV  || 'development';
+    devHost: 'localhost',
+    devPort: 3001,
+    apiPort: 1337,
 
-config.devPort      = 3001;
+    apiName: 'isomorphic-comments',
+    apiVersion: 'v1',
 
-config.apiName      = 'isomorphic-comments';
-config.apiVersion   = 'v1';
+    apiPath: '/api',
 
-config.apiPath      = '/api';
+    loginCookie: 'api_login',
+    tokenCookie: 'api_token',
 
-config.loginCookie  = 'api_login';
-config.tokenCookie  = 'api_token';
-
-config.loginHeader  = 'X-User-Email';
-config.tokenHeader  = 'X-User-Token';
-
-
-export default config;
+    loginHeader: 'X-User-Email',
+    tokenHeader: 'X-User-Token'
+};

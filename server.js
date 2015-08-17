@@ -7,39 +7,56 @@ import path         from 'path';
 import noCache      from './server/noCache';
 import errors       from './server/errors';
 import logger       from './server/log';
+import httpProxy from 'http-proxy';
 
 
 export default (initter, config) => {
 
-  global.__CLIENT__ = false;
-  global.__SERVER__ = true;
-  global.__DEV__    = config.env !== 'production';
+    global.__CLIENT__ = false;
+    global.__SERVER__ = true;
+    global.__DEV__    = config.env !== 'production';
 
-  const app = express();
+    const app = express();
 
-  const appEnv = app.get('env');
+    const appEnv = app.get('env');
 
-  logger(app, appEnv, config.bundle);
+    logger(app, appEnv, config.bundle);
 
-  app.use(compressor());
+    app.use(compressor());
 
-  app.use(parser.json());
-  app.use(parser.urlencoded({ extended: true }));
+    //app.use(parser.json());
+    app.use(parser.urlencoded({ extended: true }));
 
-  app.use(cookies());
+    app.use(cookies());
 
-  app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.static(path.join(__dirname, 'public')));
 
-  app.use('/', noCache, initter);
+    const proxy = httpProxy.createProxyServer({
+        target: 'http://localhost:' + config.apiPort
+    });
 
-  app.set('view engine', 'jade');
-  app.set('views', path.join(__dirname, 'app'));
-  app.use(errors);
+    proxy.on('error', function (err, req, res) {
+        res.writeHead(500, {
+            'Content-Type': 'text/plain'
+        });
 
-  app.set('port', config.appPort);
+        res.end('Something went wrong. And we are reporting a custom error message.');
+    });
 
-  app.listen(app.get('port'), function() {
-    console.log(`=> 🚀  Express ${config.bundle} ${config.env} server is running on port ${this.address().port}`);  // eslint-disable-line no-console
-  });
+    app.use('/api', (req, res) => {
+        proxy.web(req, res);
+    });
+
+    app.use('/', noCache, initter);
+
+    app.set('view engine', 'jade');
+    app.set('views', path.join(__dirname, 'app'));
+    app.use(errors);
+
+    app.set('port', config.appPort);
+
+    app.listen(app.get('port'), function() {
+        console.log(`=> 🚀  Express ${config.bundle} ${config.env} server is running on port ${this.address().port}`);  // eslint-disable-line no-console
+    });
 
 }
