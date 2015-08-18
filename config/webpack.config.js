@@ -5,10 +5,10 @@ import Manifest from 'webpack-manifest-plugin';
 import ChunkManifest from 'chunk-manifest-webpack-plugin';
 import path from 'path';
 
-import appConfig    from '../config/server.app';
+import appConfig    from '../config/server';
 import vendorDeps from './vendors';
 
-const ENTRY_POINT = './build/bundles/app.js';
+const ENTRY_POINT = './app/client.js';
 const BABEL_LOADER = 'babel?stage=0';
 
 

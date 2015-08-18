@@ -9,7 +9,7 @@ import imagemin     from 'gulp-imagemin';
 import { exec }     from 'child_process';
 import del          from 'del';
 
-import gulpConfig   from './build/gulp.config';
+import gulpConfig   from './config/gulp.config.js';
 
 
 const prodBuildTask   = 'build';
@@ -73,7 +73,7 @@ gulp.task('bundle', done => {
   if (isDevBuild) {
 
     exec('mkdir -p public/assets');
-    startServer('server.dev.js', done);
+    startServer(config.devServer, done);
 
   } else {
 

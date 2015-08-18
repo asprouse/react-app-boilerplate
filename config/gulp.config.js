@@ -1,5 +1,5 @@
-import webpackConfig   from './webpack.config';
-import webpackCallback    from './webpack.callback';
+import webpackConfig   from './webpack.config.js';
+import webpackCallback    from './webpack.callback.js';
 
 const _public = './public';
 const _assets = './assets';
@@ -15,7 +15,7 @@ export default (isDevBuild) => {
     },
 
     server: {
-      paths: ['./server.app.js']
+      paths: ['./server.babel.js']
     },
 
     images: {
@@ -43,7 +43,9 @@ export default (isDevBuild) => {
       ]
     },
 
-    clean: [ _public ]
+    clean: [ _public ],
+
+    devServer: 'webpack-dev-server.js'
 
   };
 

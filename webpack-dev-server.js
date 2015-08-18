@@ -7,7 +7,7 @@ require('babel/register')({
 
 var webpack          = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
-var webpackConfig    = require('./build/webpack.config')(true);
+var webpackConfig    = require('./config/webpack.config')(true);
 var serverConfig     = require('./config/server');
 
 
