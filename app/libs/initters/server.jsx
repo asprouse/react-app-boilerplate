@@ -73,7 +73,7 @@ export default async (req, res, next, params) => {
 
       const state = store.getState();
 
-      let { bundle, locals, facebookAppId } = params;
+      let { locals, facebookAppId } = params;
 
       locals.head = React.renderToStaticMarkup(
         React.createElement(params.Head, {
@@ -99,7 +99,7 @@ export default async (req, res, next, params) => {
       locals.chunks = serialize(chunks);
       locals.data   = serialize(state);
 
-      const layout = `${process.cwd()}/app/bundles/${bundle}/layouts/Layout.jade`;
+      const layout = `${process.cwd()}/app/layouts/Layout.jade`;
       const html   = jade.compileFile(layout, { pretty: false })(locals);
 
       res.send(html);
