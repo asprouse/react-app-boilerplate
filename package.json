@@ -1,7 +1,7 @@
 {
-  "name": "isomorphic-comments-app",
+  "name": "react-app-boilerplate",
   "version": "0.0.1",
-  "description": "My awesome app",
+  "description": "Universal app boilerplate",
   "homepage": "",
   "author": {
     "name": "",
@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "private": true,
-  "repository": "https://github.com/alexfedoseev/isomorphic-comments-app",
+  "repository": "https://github.com/asprouse/react-app-boilerplate",
   "main": "server.js",
   "scripts": {
     "start": "gulp start:dev",
@@ -28,7 +28,6 @@
     "express": "^4.13.1",
     "http-proxy": "^1.11.1",
     "immutable": "^3.7.4",
-    "jade": "^1.11.0",
     "morgan": "^1.6.1",
     "nprogress": "^0.2.0",
     "path": "^0.11.14",

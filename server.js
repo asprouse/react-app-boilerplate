@@ -5,7 +5,6 @@ import cookies      from 'cookie-parser';
 import path         from 'path';
 
 import noCache      from './server/noCache';
-import errors       from './server/errors';
 import logger       from './server/log';
 import httpProxy from 'http-proxy';
 
@@ -39,10 +38,6 @@ export default (initter, config) => {
   });
 
   app.use('/', noCache, initter);
-
-  app.set('view engine', 'jade');
-  app.set('views', path.join(__dirname, 'app'));
-  app.use(errors);
 
   app.set('port', config.appPort);
 

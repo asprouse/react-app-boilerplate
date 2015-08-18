@@ -1,10 +1,8 @@
 import webpackConfig   from './webpack.config';
 import webpackCallback    from './webpack.callback';
 
-
-const _app    = './app';
 const _public = './public';
-const _assets = `${_app}/assets`;
+const _assets = './assets';
 
 
 export default (isDevBuild) => {
