@@ -34,7 +34,7 @@ function commonPlugins(dev) {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       chunks: ['app'],
-      filename: fileName('vendor', dev),
+      filename: 'vendor' + (dev ? '' : '-[chunkhash]') + '.js',
       minChunks: Infinity
     }),
     new webpack.DefinePlugin({
@@ -104,7 +104,8 @@ export default function(dev) {
     output: {
       path: path.join(process.cwd(), 'public', 'assets'),
       filename: fileName('name', dev),
-      chunkFilename: fileName('name', dev)
+      chunkFilename: fileName('name', dev),
+      publicPath: `http://${appConfig.devHost}:${appConfig.devPort}/assets`
     },
 
     resolve: {
