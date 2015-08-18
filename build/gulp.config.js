@@ -1,5 +1,4 @@
-import webpackDevConfig   from './webpack.config.dev';
-import webpackProdConfig  from './webpack.config.prod';
+import webpackConfig   from './webpack.config';
 import webpackCallback    from './webpack.callback';
 
 
@@ -13,7 +12,7 @@ export default (isDevBuild) => {
   return {
 
     webpack: {
-      config: isDevBuild ? webpackDevConfig : webpackProdConfig,
+      config: webpackConfig(isDevBuild),
       cb    : webpackCallback
     },
 
