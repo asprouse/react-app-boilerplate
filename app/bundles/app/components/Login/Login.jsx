@@ -172,14 +172,7 @@ export default class Login extends React.Component {
     const { authAgent, authActions } = this.props;
     const { router } = this.context;
 
-    const data = {
-      'api_user': {
-        'email'   : login,
-        'password': password
-      }
-    };
-
-    authActions.login({ data, authAgent, router });
+    authActions.login({ email: login, password, authAgent, router });
 
     analytics.sendEvent({
       category: 'Login',

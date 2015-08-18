@@ -13,7 +13,7 @@ export function setLoggedInState(user) {
 }
 
 
-export function login({ data, authAgent, router }) {
+export function login({ email, password, authAgent, router }) {
 
   return dispatch => {
 
@@ -24,7 +24,7 @@ export function login({ data, authAgent, router }) {
     return apiCall({
       method: 'POST',
       path  : '/login',
-      data  : data
+      data  : { email, password }
     })
       .then(res => {
 
