@@ -7,7 +7,7 @@ import { createStore }      from 'redux';
 import { Provider }         from 'react-redux';
 import middleware           from 'redux-thunk';
 import serialize            from 'serialize-javascript';
-import jade                 from 'jade';
+import template             from './template';
 
 import Auth                 from 'app/libs/Auth';
 import populateState        from 'app/libs/populateState';
@@ -99,10 +99,7 @@ export default async (req, res, next, params) => {
       locals.chunks = serialize(chunks);
       locals.data   = serialize(state);
 
-      const layout = `${process.cwd()}/app/layouts/Layout.jade`;
-      const html   = jade.compileFile(layout, { pretty: false })(locals);
-
-      res.send(html);
+      res.send(template(locals));
 
     } catch (err) {
 
