@@ -24,7 +24,6 @@ export default (initter, config) => {
 
   app.use(compressor());
 
-  //app.use(parser.json());
   app.use(parser.urlencoded({ extended: true }));
 
   app.use(cookies());
@@ -33,14 +32,6 @@ export default (initter, config) => {
 
   const proxy = httpProxy.createProxyServer({
     target: 'http://localhost:' + config.apiPort
-  });
-
-  proxy.on('error', function (err, req, res) {
-    res.writeHead(500, {
-      'Content-Type': 'text/plain'
-    });
-
-    res.end('Something went wrong. And we are reporting a custom error message.');
   });
 
   app.use('/api', (req, res) => {
