@@ -11,10 +11,6 @@ export default (fetch) => {
 
       static propTypes = {
 
-        authAgent: Type.shape({
-          getAuthHeaders: Type.func
-        }),
-
         store: Type.shape({
           dispatch: Type.func
         }),
@@ -30,12 +26,11 @@ export default (fetch) => {
 
         if (this.props.initialRender) return;
 
-        const { authAgent, location, params, store } = this.props;
+        const { location, params, store } = this.props;
 
         fetch({
           location,
           params,
-          auth    : authAgent.getAuthHeaders(),
           dispatch: store.dispatch
         });
 

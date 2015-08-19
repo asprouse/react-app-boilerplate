@@ -37,7 +37,6 @@ export default async (req, res, next) => {
   const reducer = combineReducers(reducers);
   const store = applyMiddleware(middleware)(createStore)(reducer);
   const location = new Location(req.path, req.query);
-  const authAgent = new Auth(req, cookieDomain);
 
   const routes = createRoutes({ store });
 
@@ -62,7 +61,6 @@ export default async (req, res, next) => {
     try {
       await populateState(initialState.components, {
         apiHost: config.apiEndpoint,
-        auth: authAgent.getAuthHeaders(),
         dispatch: store.dispatch,
         location: initialState.location,
         params: initialState.params

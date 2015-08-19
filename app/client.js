@@ -11,7 +11,6 @@ import { Provider } from 'react-redux';
 import middleware from 'redux-thunk';
 
 import config from 'config/server';
-import Auth from './libs/Auth';
 import analytics from './libs/analytics';
 import setCookieDomain from './libs/setCookieDomain';
 import routes from './routes';
@@ -21,7 +20,6 @@ const cookieDomain = setCookieDomain(document.location.hostname);
 const reducer = combineReducers(reducers);
 const store = applyMiddleware(middleware)(createStore)(reducer, window.__DATA__);
 const history = new BrowserHistory();
-const authAgent = new Auth(document, cookieDomain);
 
 let initialRender = true;
 
@@ -37,7 +35,6 @@ function appComponent(Component, props) {
   return (
     <Component
       store={store}
-      authAgent={authAgent}
       initialRender={initialRender}
       {...props}
       />

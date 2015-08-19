@@ -12,8 +12,7 @@ export function setLoggedInState(user) {
 
 }
 
-
-export function login({ email, password, authAgent, router }) {
+export function login({ email, password, router }) {
 
   return dispatch => {
 
@@ -27,21 +26,14 @@ export function login({ email, password, authAgent, router }) {
       data  : { email, password }
     })
       .then(res => {
+         console.log('wooo', res);
 
-        const { 'email': user, 'authentication_token': token } = res.data.user;
 
-        authAgent.login(user, token, {
-          sessionOnly: false,
-          cb         : () => {
-
-            dispatch({
-              type: actionTypes.AUTH_LOGIN_SUCCEED,
-              user: user
-            });
-            if (!router.goBack()) router.transitionTo('/');
-
-          }
+        dispatch({
+          type: actionTypes.AUTH_LOGIN_SUCCEED,
+          user: res.data
         });
+        if (!router.goBack()) router.transitionTo('/');
 
       })
       .catch(res => {
@@ -59,17 +51,12 @@ export function login({ email, password, authAgent, router }) {
 }
 
 
-export function logout({ authAgent, router, backPath }) {
-
+export function logout({ router, backPath }) {
   return dispatch => {
-
-    authAgent.logout(() => {
-      dispatch({
-        type: actionTypes.AUTH_LOGGED_OUT
-      });
-      router.transitionTo('/logout', null, { backPath });
+    dispatch({
+      type: actionTypes.AUTH_LOGGED_OUT
     });
-
+    router.transitionTo('/logout', null, { backPath });
   };
 
 }

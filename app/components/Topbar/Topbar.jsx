@@ -16,33 +16,23 @@ export default class Topbar extends React.Component {
       logout: Type.func.isRequired
     }).isRequired,
 
-    authAgent: Type.shape({
-      login : Type.func.isRequired,
-      logout: Type.func.isRequired
-    })
-
-  }
+  };
 
 
   static contextTypes = {
     router: Type.object.isRequired
-  }
-
-
-  constructor(props, context) {
-    super(props, context);
-  }
+  };
 
 
   _handleLogout() {
 
-    const { authActions, authAgent } = this.props;
+    const { authActions } = this.props;
     const { router } = this.context;
     const { pathname, query } = router.state.location;
 
     const backPath = router.makePath(pathname, query);
 
-    authActions.logout({ authAgent, router, backPath });
+    authActions.logout({ router, backPath });
 
   }
 
