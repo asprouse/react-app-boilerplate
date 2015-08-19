@@ -13,13 +13,10 @@ import NProgress from 'nprogress';
 
 import config from 'config/server';
 import Auth from './libs/Auth';
-import setTitle from './libs/setPageTitle';
 import analytics from './libs/analytics';
 import setCookieDomain from './libs/setCookieDomain';
 import routes from './routes/routes';
 import reducers from './reducers/reducers';
-import meta from './layouts/meta';
-
 
 const cookieDomain = setCookieDomain(document.location.hostname);
 const reducer = combineReducers(reducers);
@@ -50,8 +47,6 @@ function appComponent(Component, props) {
       loader={NProgress}
       authAgent={authAgent}
       initialRender={initialRender}
-      setTitle={setTitle}
-      meta={meta}
       {...props}
       />
   );

@@ -34,10 +34,8 @@ export default class CommentsList extends React.Component {
       getAuthHeaders: Type.func.isRequired
     }),
 
-    loader  : Type.object,
-    setTitle: Type.func
-
-  }
+    loader  : Type.object
+  };
 
 
   constructor(props, context) {
@@ -46,10 +44,7 @@ export default class CommentsList extends React.Component {
 
 
   componentDidMount() {
-
     this.props.loader.done();
-    this.props.setTitle();
-
   }
 
 

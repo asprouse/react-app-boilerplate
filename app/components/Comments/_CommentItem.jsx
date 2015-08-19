@@ -20,10 +20,9 @@ export default class CommentItem extends React.Component {
       id: Type.string.isRequired
     }).isRequired,
 
-    loader  : Type.object,
-    setTitle: Type.func
+    loader  : Type.object
 
-  }
+  };
 
 
   constructor(props, context) {
@@ -32,10 +31,7 @@ export default class CommentItem extends React.Component {
 
 
   componentDidMount() {
-
     this.props.loader.done();
-    this.props.setTitle();
-
   }
 
 

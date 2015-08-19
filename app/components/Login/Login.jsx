@@ -27,15 +27,13 @@ export default class Login extends React.Component {
       logout: Type.func.isRequired
     }),
 
-    loader  : Type.object,
-    setTitle: Type.func
-
-  }
+    loader  : Type.object
+  };
 
 
   static contextTypes = {
     router: Type.object.isRequired
-  }
+  };
 
 
   constructor(props, context) {
@@ -52,10 +50,7 @@ export default class Login extends React.Component {
   }
 
   componentDidMount() {
-
     this.props.loader.done();
-    this.props.setTitle();
-
   }
 
 
