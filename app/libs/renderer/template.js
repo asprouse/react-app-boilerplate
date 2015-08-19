@@ -32,7 +32,6 @@ export default (c) => {
     <body>
       <div id="app">${c.body}</div>
       <script>
-        window.__CHUNKS__ = ${c.chunks};
         window.__DATA__ = ${c.data};
       </script>
       <script src="${c.vendorAsset}"></script>

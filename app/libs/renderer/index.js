@@ -13,26 +13,24 @@ import Auth from 'app/libs/Auth';
 import populateState from 'app/libs/populateState';
 import getAsset from 'app/libs/getAsset';
 import setCookieDomain from 'app/libs/setCookieDomain';
-import createRoutes from 'app/routes/routes';
+import createRoutes from 'app/routes';
 import reducers from 'app/reducers/reducers';
 
-import { bundle, facebookAppId } from 'config/server';
+import config from 'config/server';
 
 function getRouteName(branch) {
   return branch[branch.length - 1].name;
 }
 
 export default async (req, res, next) => {
-  const chunks = __DEV__ ? {} : require('public/assets/chunk-manifest.json');
   const cookieDomain = setCookieDomain(req.headers.host);
 
   const templateContext = {
-    facebookAppId,
-    chunks: serialize(chunks),
-    appHost: `${req.protocol}://${req.headers.host}`,
+    facebookAppId: config.facebookAppId,
+    appHost: config.appEndpoint,
     fullPath: req.url,
-    jsAsset: getAsset(bundle, 'js'),
-    cssAsset: getAsset(bundle, 'css'),
+    jsAsset: getAsset(config.bundle, 'js'),
+    cssAsset: getAsset(config.bundle, 'css'),
     vendorAsset: getAsset('vendor', 'js')
   };
 
@@ -63,11 +61,11 @@ export default async (req, res, next) => {
 
     try {
       await populateState(initialState.components, {
-        apiHost : `${req.protocol}://api.${req.headers.host}`,
-        auth    : authAgent.getAuthHeaders(),
+        apiHost: config.apiEndpoint,
+        auth: authAgent.getAuthHeaders(),
         dispatch: store.dispatch,
         location: initialState.location,
-        params  : initialState.params
+        params: initialState.params
       });
 
       templateContext.data = serialize(store.getState());

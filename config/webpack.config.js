@@ -19,7 +19,7 @@ function fileName(name, dev) {
 function appEntry(dev) {
   if (dev) {
     return [
-      `webpack-dev-server/client?http://${appConfig.devHost}:${appConfig.devPort}`,
+      `webpack-dev-server/client?${appConfig.devEndpoint}`,
       'webpack/hot/only-dev-server',
       ENTRY_POINT
     ]
@@ -105,7 +105,7 @@ export default function(dev) {
       path: path.join(process.cwd(), 'public', 'assets'),
       filename: fileName('name', dev),
       chunkFilename: fileName('name', dev),
-      publicPath: `http://${appConfig.devHost}:${appConfig.devPort}/assets`
+      publicPath: appConfig.devEndpoint + '/assets'
     },
 
     resolve: {

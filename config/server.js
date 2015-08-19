@@ -1,15 +1,18 @@
 /* eslint no-process-env: 0 */
+import getUrlConfig from './getUrlConfig';
+
+const APP_URL_CONFIG = getUrlConfig('app', 'http', 'localhost', process.env.APP_PORT || 3500);
+const DEV_URL_CONFIG = getUrlConfig('dev', 'http', 'localhost', 3001);
+const API_URL_CONFIG = getUrlConfig('api', 'http', 'localhost', 1337);
 
 export default {
+  ...APP_URL_CONFIG,
+  ...DEV_URL_CONFIG,
+  ...API_URL_CONFIG,
+
   env: process.env.NODE_ENV || 'development',
 
   bundle: 'app',
-
-  devHost: 'localhost',
-  devPort: 3001,
-  apiPort: 1337,
-  appPort: process.env.APP_PORT || 3500,
-
   apiName: 'isomorphic-comments',
   apiVersion: 'v1',
 

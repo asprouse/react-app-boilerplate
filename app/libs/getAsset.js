@@ -5,7 +5,7 @@ export default (asset, type) => {
 
   if (__DEV__) {
 
-    return `http://${config.devHost}:${config.devPort}/assets/${asset}.${type}`;
+    return `${config.devEndpoint}/assets/${asset}.${type}`;
 
   } else {
 

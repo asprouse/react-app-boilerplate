@@ -16,7 +16,7 @@ var initialCompile = true;
 var compiler = webpack(webpackConfig);
 
 var devServer = new WebpackDevServer(compiler, {
-  contentBase       : 'http://localhost:' + serverConfig.devPort,
+  contentBase       : serverConfig.devEndpoint,
   publicPath        : webpackConfig.output.publicPath,
   hot               : true,
   inline            : true,
@@ -35,7 +35,7 @@ var devServer = new WebpackDevServer(compiler, {
 
 devServer.listen(serverConfig.devPort, 'localhost', function(err) {
   if (err) console.error(err);
-  console.log('=> 🔥  Webpack development server is running on port %s', serverConfig.devPort);
+  console.log('=> 🔥  Webpack development server is running at %s', serverConfig.devEndpoint);
 });
 
 compiler.plugin('done', function() {

@@ -9,13 +9,12 @@ import { applyMiddleware } from 'redux';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import middleware from 'redux-thunk';
-import NProgress from 'nprogress';
 
 import config from 'config/server';
 import Auth from './libs/Auth';
 import analytics from './libs/analytics';
 import setCookieDomain from './libs/setCookieDomain';
-import routes from './routes/routes';
+import routes from './routes';
 import reducers from './reducers/reducers';
 
 const cookieDomain = setCookieDomain(document.location.hostname);
@@ -31,20 +30,13 @@ if (config.googleAnalyticsId) {
 }
 
 function appComponent(Component, props) {
-  NProgress.configure({
-    showSpinner: false,
-    trickle    : true
-  });
-
   if (props.route.name === 'app') {
-    NProgress.start();
     analytics.sendPageview(props.location.pathname);
   }
 
   return (
     <Component
       store={store}
-      loader={NProgress}
       authAgent={authAgent}
       initialRender={initialRender}
       {...props}

@@ -31,7 +31,7 @@ app.use(cookies());
 app.use(express.static(path.join(process.cwd(), 'public')));
 
 const proxy = httpProxy.createProxyServer({
-  target: 'http://localhost:' + config.apiPort
+  target: config.apiEndpoint
 });
 
 app.use('/api', (req, res) => {
