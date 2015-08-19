@@ -26,27 +26,6 @@ export default async (req, res, next, params) => {
   const appHost   = `${req.protocol}://${req.headers.host}`;
   const apiHost   = `${req.protocol}://api.${req.headers.host}`;
 
-  if (authAgent.isLoggedIn()) {
-
-    await apiCall({
-      method: 'GET',
-      host  : apiHost,
-      path  : '/auth/preflight',
-      auth  : authAgent.getAuthHeaders()
-    })
-      .then(response => {
-        return (
-          store.dispatch(params.AuthActions.setLoggedInState(authAgent.getLogin()))
-        );
-      })
-      .catch(response => {
-        return (
-          response.status === 401 ? authAgent.logout() : false
-        );
-      });
-
-  }
-
   const routes = params.routes({ store });
 
   Router.run(routes, location, async (error, initialState, transition) => {

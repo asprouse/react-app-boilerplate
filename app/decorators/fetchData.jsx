@@ -9,10 +9,6 @@ export default (fetch) => {
 
     class FetchDataDecorator extends React.Component {
 
-
-      static fetchData = fetch
-
-
       static propTypes = {
 
         authAgent: Type.shape({
@@ -27,7 +23,7 @@ export default (fetch) => {
         params       : Type.object,
         initialRender: Type.bool
 
-      }
+      };
 
 
       componentDidMount() {
