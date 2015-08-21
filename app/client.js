@@ -12,11 +12,10 @@ import middleware from 'redux-thunk';
 
 import config from 'config/server';
 import analytics from './libs/analytics';
-import setCookieDomain from './libs/setCookieDomain';
 import routes from './routes';
 import reducers from './reducers/reducers';
 
-const cookieDomain = setCookieDomain(document.location.hostname);
+
 const reducer = combineReducers(reducers);
 const store = applyMiddleware(middleware)(createStore)(reducer, window.__DATA__);
 const history = new BrowserHistory();

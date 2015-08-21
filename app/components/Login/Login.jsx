@@ -51,9 +51,6 @@ export default class Login extends React.Component {
     if (type === actionTypes.AUTH_LOGIN_FAILED) {
       this._handleFailedSubmit();
     }
-
-    console.log(newProps);
-
   }
 
 

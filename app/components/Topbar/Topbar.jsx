@@ -14,7 +14,7 @@ export default class Topbar extends React.Component {
 
     authActions: Type.shape({
       logout: Type.func.isRequired
-    }).isRequired,
+    }).isRequired
 
   };
 

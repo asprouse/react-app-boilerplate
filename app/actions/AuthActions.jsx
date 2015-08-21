@@ -26,14 +26,11 @@ export function login({ email, password, router }) {
       data  : { email, password }
     })
       .then(res => {
-         console.log('wooo', res);
-
-
         dispatch({
           type: actionTypes.AUTH_LOGIN_SUCCEED,
           user: res.data
         });
-        if (!router.goBack()) router.transitionTo('/');
+        router.transitionTo('/');
 
       })
       .catch(res => {
