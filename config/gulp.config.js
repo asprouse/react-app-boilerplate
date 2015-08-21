@@ -27,9 +27,9 @@ export default (isDevBuild) => {
     copy: {
       from : _assets,
       files: [
-        [ '/fonts'                   ],
-        [ '/tinies/favicon.ico', '/' ],
-        [ '/tinies/robots.txt',  '/' ]
+        [ '/fonts'],
+        [ '/svg'],
+        [ '/tinies/*', '/' ]
       ],
       to: _public
     },

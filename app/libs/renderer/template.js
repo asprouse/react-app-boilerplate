@@ -9,6 +9,7 @@ export default (c) => {
   <!DOCTYPE html>
   <html>
     <head>
+      <link rel="shortcut icon" href="/favicon.png" />
       <base href="/" />
       <meta charSet="utf-8" />
       <title>${c.title}</title>
