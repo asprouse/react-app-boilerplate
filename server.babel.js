@@ -5,4 +5,10 @@ require('babel/register')({
   stage     : 0
 });
 
+var config =  require('config/server');
+
+global.__CLIENT__ = false;
+global.__SERVER__ = true;
+global.__DEV__    = config.env !== 'production';
+
 require('./app/server');

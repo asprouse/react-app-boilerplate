@@ -2,13 +2,11 @@ import React from 'react';
 import Router from 'react-router';
 import Location from 'react-router/lib/Location';
 import { combineReducers } from 'redux';
-import { applyMiddleware } from 'redux';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import middleware from 'redux-thunk';
 import serialize from 'serialize-javascript';
 import template from './template';
 
+import createStore from 'app/libs/createStore';
 import populateState from 'app/libs/populateState';
 import getAsset from 'app/libs/getAsset';
 import createRoutes from 'app/routes';
@@ -19,6 +17,14 @@ import config from 'config/server';
 import RouterUtil from './RouterUtil'
 
 
+const baseContext = {
+  facebookAppId: config.facebookAppId,
+  appHost: config.appEndpoint,
+  jsAsset: getAsset(config.bundle, 'js'),
+  cssAsset: getAsset(config.bundle, 'css'),
+  vendorAsset: getAsset('vendor', 'js')
+};
+
 function renderToString(store, location, initialState) {
   return React.renderToString(
     <Provider store={store}>
@@ -28,20 +34,12 @@ function renderToString(store, location, initialState) {
 }
 
 export default async (req, res) => {
-  const reducer = combineReducers(reducers);
-  const store = applyMiddleware(middleware)(createStore)(reducer);
-  const location = new Location(req.path, req.query);
-  const routes = createRoutes({ store });
-
-  const baseContext = {
-    facebookAppId: config.facebookAppId,
-    appHost: config.appEndpoint,
-    jsAsset: getAsset(config.bundle, 'js'),
-    cssAsset: getAsset(config.bundle, 'css'),
-    vendorAsset: getAsset('vendor', 'js')
-  };
-
   try {
+    const reducer = combineReducers(reducers);
+    const store = createStore(reducer);
+    const location = new Location(req.path, req.query);
+    const routes = createRoutes({ store });
+
     const { initialState, transition, routeName }  = await RouterUtil.run(routes, location);
 
     // Handle redirect

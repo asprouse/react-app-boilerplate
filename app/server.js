@@ -11,10 +11,6 @@ import httpProxy from 'http-proxy';
 import config from 'config/server';
 import renderer from './libs/renderer';
 
-global.__CLIENT__ = false;
-global.__SERVER__ = true;
-global.__DEV__    = config.env !== 'production';
-
 const app = express();
 
 if (config.env === 'production') {

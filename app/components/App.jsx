@@ -10,6 +10,9 @@ import * as AuthActions         from '../actions/AuthActions';
 
 @connect(state => ({auth: state.auth}))
 export default class App extends React.Component {
+  static contextTypes = {
+    store: React.PropTypes.object
+  };
 
   static propTypes = {
     auth    : Type.object.isRequired,
@@ -17,10 +20,25 @@ export default class App extends React.Component {
   };
 
   render() {
+    const { store } = this.context;
     const { auth, dispatch } = this.props;
-    return (
+    const component = (
       <Layout auth={auth} authActions={bindActionCreators(AuthActions, dispatch)} {...this.props} />
     );
+
+    if (__DEV__) {
+      const { DevTools, DebugPanel, LogMonitor } = require('redux-devtools/lib/react');
+      return (
+        <div>
+          {component}
+          <DebugPanel top={true} right={true} bottom={true}>
+            <DevTools store={store} monitor={LogMonitor} />
+          </DebugPanel>
+        </div>
+      );
+    } else {
+      return component;
+    }
   }
 
 }

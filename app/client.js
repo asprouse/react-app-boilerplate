@@ -5,10 +5,8 @@ import React from 'react';
 import Router from 'react-router';
 import BrowserHistory from 'react-router/lib/BrowserHistory';
 import { combineReducers } from 'redux';
-import { applyMiddleware } from 'redux';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import middleware from 'redux-thunk';
+import createStore from './libs/createStore';
 
 import config from 'config/server';
 import analytics from './libs/analytics';
@@ -17,7 +15,7 @@ import reducers from './reducers/reducers';
 
 
 const reducer = combineReducers(reducers);
-const store = applyMiddleware(middleware)(createStore)(reducer, window.__DATA__);
+const store = createStore(reducer, window.__DATA__);
 const history = new BrowserHistory();
 
 let initialRender = true;
@@ -45,6 +43,7 @@ const AppContainer = (
     {() => <Router history={history} children={routes({ store })} createElement={appComponent} />}
   </Provider>
 );
+
 
 const appDOMNode = document.getElementById('app');
 
