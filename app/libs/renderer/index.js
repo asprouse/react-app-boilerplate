@@ -10,7 +10,7 @@ import createStore from 'app/libs/createStore';
 import populateState from 'app/libs/populateState';
 import getAsset from 'app/libs/getAsset';
 import createRoutes from 'app/routes';
-import reducers from 'app/reducers/reducers';
+import reducers from 'app/reducers';
 
 import config from 'config/server';
 

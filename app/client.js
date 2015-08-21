@@ -11,7 +11,7 @@ import createStore from './libs/createStore';
 import config from 'config/server';
 import analytics from './libs/analytics';
 import routes from './routes';
-import reducers from './reducers/reducers';
+import reducers from './reducers';
 
 
 const reducer = combineReducers(reducers);
