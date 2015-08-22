@@ -1,2 +1,2 @@
-var Redis = require('ioredis');
-module.exports = new Redis();
+import Redis from 'ioredis';
+export default new Redis();

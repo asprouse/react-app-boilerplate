@@ -4,12 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha \"test/**/*.js\""
+    "test": "mocha --compilers js:babel/register \"test/**/*.js\"",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "101": "^1.0.0",
+    "babel": "^5.8.21",
     "bcrypt": "^0.8.5",
     "bluebird": "^2.9.34",
     "boom": "^2.8.0",
@@ -21,6 +24,8 @@
   },
   "devDependencies": {
     "chai": "^3.2.0",
-    "mocha": "^2.2.5"
+    "eslint-config-airbnb": "0.0.8",
+    "mocha": "^2.2.5",
+    "nodemon": "^1.4.1"
   }
 }
