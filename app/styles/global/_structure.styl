@@ -1,0 +1,44 @@
+*
+*:before
+*:after
+    box-sizing: border-box
+
+html
+body
+    margin 0
+    padding 0
+    position relative
+    height 100%
+
+html
+    font-size 10px
+
+    // trying to get around retina laptops
+    @media (-webkit-min-device-pixel-ratio: 1.5) and (max-device-width: 1439px)
+        font-size 5px
+
+body
+    background-color #fff
+    font-size 1.6rem
+
+#page-wrapper
+    overflow hidden
+
+.container
+    @extend $cf
+
+    center(1200px, 40px)
+
+    position relative
+
+$center-wrapper
+    display table
+    width 100%
+
+$center-inner
+    display table-cell
+    text-align center
+    vertical-align middle
+
+.no-scroll
+    overflow hidden

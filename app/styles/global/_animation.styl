@@ -1,0 +1,19 @@
+.transition-group
+    > *
+        position absolute
+        width 100%
+
+.fade-enter
+    opacity 0.01
+    transition opacity 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0.6s
+
+    &.fade-enter-active
+        opacity 1
+
+
+.fade-leave
+    opacity 1
+    transition opacity 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86)
+
+    &.fade-leave-active
+        opacity 0.01

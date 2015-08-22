@@ -3,7 +3,6 @@ import { PropTypes as Type }  from 'react';
 
 import animate                from 'app/libs/animate';
 import analytics              from 'app/libs/analytics';
-import Loader                 from 'app/libs/components/Loader/Loader';
 
 import * as actionTypes       from '../../constants/AuthConstants';
 
@@ -20,9 +19,7 @@ export default class Login extends React.Component {
 
     authActions: Type.shape({
       login: Type.func.isRequired
-    }).isRequired,
-
-    loader  : Type.object
+    }).isRequired
   };
 
 
@@ -115,7 +112,6 @@ export default class Login extends React.Component {
             />
             <div className="button-wrapper">
               <button disabled={isLoading}>Login!</button>
-              {isLoading && <Loader color="#fff" />}
             </div>
           </form>
         </section>

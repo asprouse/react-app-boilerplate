@@ -1,7 +1,7 @@
 import React from 'react';
 import { PropTypes as Type } from 'react';
 
-import Topbar from '../components/Topbar/TopbarContainer';
+import Nav from './Nav';
 
 
 export default class Layout extends React.Component {
@@ -13,8 +13,8 @@ export default class Layout extends React.Component {
 
   render() {
     return (
-        <section id="layout">
-          <Topbar />
+        <section id="page-wrapper">
+          <Nav />
           {this.props.children}
         </section>
     );

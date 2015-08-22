@@ -5,6 +5,10 @@ import Manifest from 'webpack-manifest-plugin';
 import ChunkManifest from 'chunk-manifest-webpack-plugin';
 import path from 'path';
 
+import nib from 'nib';
+import jeet from 'jeet';
+import rupture from 'rupture';
+
 import appConfig    from '../config/server';
 import vendorDeps from './vendors';
 
@@ -126,6 +130,10 @@ export default function(dev) {
 
     plugins: dev ? devPlugins() : prodPlugins(),
 
+    stylus: {
+      use: [nib(), jeet(), rupture()]
+    },
+
     module: {
       noParse: /\.min\.js$/,
       loaders: [
@@ -136,7 +144,7 @@ export default function(dev) {
         },
         {
           test: /\.styl$/,
-          loader: styleLoader('css!autoprefixer?{browsers:["last 2 version"], cascade:false}!stylus', dev)
+          loader: styleLoader('css!stylus', dev)
         },
         {
           test: /\.css$/,
