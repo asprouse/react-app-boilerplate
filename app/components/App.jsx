@@ -31,7 +31,7 @@ export default class App extends React.Component {
       return (
         <div>
           {component}
-          <DebugPanel top={true} right={true} bottom={true}>
+          <DebugPanel bottom={true} top={true} left={true}>
             <DevTools store={store} monitor={LogMonitor} />
           </DebugPanel>
         </div>
