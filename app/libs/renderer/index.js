@@ -11,7 +11,7 @@ import populateState from 'app/libs/populateState';
 import getAsset from 'app/libs/getAsset';
 import createRoutes from 'app/routes';
 import reducers from 'app/reducers';
-
+import checkAuth from 'app/libs/checkAuth';
 import config from 'config/server';
 
 import RouterUtil from './RouterUtil';
@@ -39,6 +39,8 @@ export default async (req, res) => {
     const store = createStore(reducer);
     const location = new Location(req.path, req.query);
     const routes = createRoutes({ store });
+
+    await checkAuth(req, store.dispatch);
 
     const { initialState, transition, routeName } = await RouterUtil.run(routes, location);
 

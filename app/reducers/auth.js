@@ -66,6 +66,33 @@ export default function auth(state = initialState, action) {
         isLoading: false
       };
 
+    case actionTypes.AUTH_GET_USER:
+      return {
+        type,
+        user: null,
+        isLoggedIn: false,
+        errors: null,
+        isLoading: true
+      };
+
+    case actionTypes.AUTH_GET_USER_SUCCEED:
+      return {
+        type,
+        user: user,
+        isLoggedIn: true,
+        errors: null,
+        isLoading: false
+      };
+
+    case actionTypes.AUTH_GET_USER_FAILED:
+      return {
+        type,
+        user: null,
+        isLoggedIn: false,
+        errors: errors,
+        isLoading: false
+      };
+
 
     default:
       return state;

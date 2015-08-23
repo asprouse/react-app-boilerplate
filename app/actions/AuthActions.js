@@ -1,4 +1,4 @@
-import apiCall from 'app/libs/apiCall';
+import Api from 'app/libs/Api';
 
 import * as actionTypes from '../constants/AuthConstants';
 
@@ -19,7 +19,7 @@ export function login({ email, password, router }) {
       type: actionTypes.AUTH_LOGIN_REQUESTED
     });
 
-    return apiCall({
+    return Api.call({
       method: 'POST',
       path: '/login',
       data: { email, password }
@@ -52,8 +52,8 @@ export function getUser() {
       type: actionTypes.AUTH_GET_USER
     });
 
-    return apiCall({
-      method: 'POST',
+    return Api.call({
+      method: 'GET',
       path: '/users/me'
     })
       .then(res => {
@@ -62,9 +62,13 @@ export function getUser() {
           user: res.data
         });
       })
-      .catch(() => {
+      .catch(res => {
         dispatch({
-          type: actionTypes.AUTH_GET_USER_FAILED
+          type: actionTypes.AUTH_GET_USER_FAILED,
+          errors: {
+            code: res.status,
+            data: res.data
+          }
         });
       });
 
