@@ -1,23 +1,23 @@
 import { assert } from 'chai';
-import userFactory from '../lib/user';
+import Users from '../lib/Users';
 import FakeRedis from './common/FakeRedis';
 
 
-describe('User', () => {
+describe('Users', () => {
   let redis;
-  let User;
+
   const email1 = 'test@foo.com';
   const password1 = 'asdf123';
   const user1 = { email: email1, password: password1 };
 
   beforeEach(() => {
     redis = new FakeRedis();
-    User = userFactory(redis);
+    Users.setRedis(redis);
   });
 
   describe('create', () => {
     it('create a user', (done) => {
-      User.create(user1).then((user) => {
+      Users.create(user1).then((user) => {
         assert.isNotNull(user);
         assert.equal(user.email, email1);
         assert.notProperty(user, 'password');
@@ -28,9 +28,9 @@ describe('User', () => {
     });
 
     it('create fails when email is already in use', (done) => {
-      User.create(user1)
+      Users.create(user1)
         .then(() => {
-          return User.create({ email: email1, password: 'differentpassword' });
+          return Users.create({ email: email1, password: 'differentpassword' });
         })
         .then(() => {
           assert.fail();
@@ -45,9 +45,9 @@ describe('User', () => {
 
   describe('authenticate', () => {
     it('returns a user when auth is successful', (done) => {
-      User.create(user1)
+      Users.create(user1)
         .then(() => {
-          return User.authenticate(email1, password1);
+          return Users.authenticate(email1, password1);
         }, done)
         .then((user) => {
           assert.isNotNull(user);
@@ -56,9 +56,9 @@ describe('User', () => {
     });
 
     it('returns false when auth fails', (done) => {
-      User.create(user1)
+      Users.create(user1)
         .then(() => {
-          return User.authenticate(email1, 'poopy');
+          return Users.authenticate(email1, 'poopy');
         })
         .then((user) => {
           assert.isFalse(user);

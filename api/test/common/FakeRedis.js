@@ -26,6 +26,7 @@ FakePipeline.prototype = {
   }
 };
 
+
 function FakeRedis() {
   this.state = {};
 }
@@ -37,6 +38,23 @@ FakeRedis.prototype = {
   set(key, value) {
     this.state[key] = value;
   },
+
+  hget(key, field) {
+    return Promise.reslove((this.state[key] || {})[field]);
+  },
+
+  hgetall(key) {
+    return this.get(key);
+  },
+
+  hset(key, field, value) {
+    if (typeof this.state[key] !== 'object') {
+      this.state[key] = {};
+    }
+
+    this.state[key][field] = value;
+  },
+
   pipeline() {
     return new FakePipeline(this.state);
   }

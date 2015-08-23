@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel/register \"test/**/*.js\"",
+    "test": "mocha --compilers js:babel/register \"test/**/*.test.js\"",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
