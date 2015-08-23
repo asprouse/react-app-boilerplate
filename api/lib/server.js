@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import Hapi from 'hapi';
 import Authentication from './authentication';
 import hapiAuthCookie from 'hapi-auth-cookie';

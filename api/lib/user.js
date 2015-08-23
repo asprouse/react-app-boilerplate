@@ -19,15 +19,14 @@ function removePassword(user) {
   return omit(user, 'password');
 }
 
-module.exports = function(redis) {
+export default (redis) => {
   function setUser(user) {
     redis.set(userKey(user.id), JSON.stringify(user));
   }
 
-  function getUser(userId, includePassword) {
-    return redis.get(userKey(userId)).then(function (userStr) {
-      return userStr ? JSON.parse(userStr) : null;
-    });
+  function getUser(userId) {
+    return redis.get(userKey(userId))
+      .then(userStr => userStr ? JSON.parse(userStr) : null);
   }
 
   function indexFields(user) {
@@ -45,22 +44,21 @@ module.exports = function(redis) {
   }
 
   function findByIndex(index, value, includePassword) {
-    return redis.get(indexKey(index, value)).then(function (userId) {
-      return userId ? getUser(userId, includePassword) : null;
-    });
+    return redis.get(indexKey(index, value))
+      .then(userId => userId ? getUser(userId, includePassword) : null);
   }
 
   function update(user) {
     if (user.password) {
-      return bcrypt.genSaltAsync(10).then(function(salt) {
-        return bcrypt.hashAsync(user.password, salt);
-      }).then((hash) => {
-        user.password = hash;
-        setUser(user);
-        indexFields(user);
+      return bcrypt.genSaltAsync(10)
+        .then(salt => bcrypt.hashAsync(user.password, salt))
+        .then((hash) => {
+          user.password = hash;
+          setUser(user);
+          indexFields(user);
 
-        return removePassword(user);
-      });
+          return removePassword(user);
+        });
     }
 
     setUser(user);
