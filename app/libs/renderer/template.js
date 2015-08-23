@@ -1,7 +1,7 @@
 import meta from './meta';
 
-export default (c) => {
-  c = meta(c);
+export default (context) => {
+  const c = meta(context);
 
   const css = !__DEV__ ? `<link rel="stylesheet" href="${c.cssAsset}" />` : '';
 
@@ -40,4 +40,4 @@ export default (c) => {
     </body>
   </html>
 `;
-}
+};

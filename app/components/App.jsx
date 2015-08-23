@@ -1,22 +1,22 @@
-import React                    from 'react';
-import { PropTypes as Type }    from 'react';
-import { bindActionCreators }   from 'redux';
-import { connect }              from 'react-redux';
+import React from 'react';
+import { PropTypes as Type } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-import Layout                   from './Layout';
+import Layout from './Layout';
 
-import * as AuthActions         from '../actions/AuthActions';
+import * as AuthActions from '../actions/AuthActions';
 
 
 @connect(state => ({auth: state.auth}))
 export default class App extends React.Component {
-  static contextTypes = {
-    store: React.PropTypes.object
+  static propTypes = {
+    auth: Type.object.isRequired,
+    dispatch: Type.func.isRequired
   };
 
-  static propTypes = {
-    auth    : Type.object.isRequired,
-    dispatch: Type.func.isRequired
+  static contextTypes = {
+    store: React.PropTypes.object
   };
 
   render() {
@@ -36,9 +36,9 @@ export default class App extends React.Component {
           </DebugPanel>
         </div>
       );
-    } else {
-      return component;
     }
+
+    return component;
   }
 
 }

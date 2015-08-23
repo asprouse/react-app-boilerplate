@@ -2,7 +2,7 @@ export default (amount, words) => {
 
   let inflection;
 
-  let _amount = amount % 100;
+  const _amount = amount % 100;
 
   if (_amount >= 11 && _amount <= 19) {
 
@@ -17,7 +17,7 @@ export default (amount, words) => {
       case (2):
       case (3):
       case (4): inflection = words[1]; break;
-      default:  inflection = words[2];
+      default: inflection = words[2];
     }
   }
 

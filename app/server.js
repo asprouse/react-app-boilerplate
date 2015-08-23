@@ -14,7 +14,7 @@ import renderer from './libs/renderer';
 const app = express();
 
 if (config.env === 'production') {
-  let logStream = fs.createWriteStream(`${process.cwd()}/log/server.log`, { flags: 'a' });
+  const logStream = fs.createWriteStream(`${process.cwd()}/log/server.log`, { flags: 'a' });
   app.use(logger('combined', { stream: logStream }));
 } else {
   app.use(logger('dev'));
@@ -38,6 +38,6 @@ app.use('/', renderer);
 
 app.set('port', config.appPort);
 
-app.listen(app.get('port'), function() {
+app.listen(app.get('port'), function listenCallback() {
   console.log(`=> 🚀  Express ${config.bundle} ${config.env} server is running on port ${this.address().port}`);  // eslint-disable-line no-console
 });

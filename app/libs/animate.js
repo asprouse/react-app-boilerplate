@@ -1,4 +1,5 @@
-import className  from './className';
+/* eslint prefer-const: 0 */
+import className from './className';
 
 
 export default (element, animation, cb) => {
@@ -11,30 +12,30 @@ export default (element, animation, cb) => {
 
   /* Detect events */
 
-  let endEvents = [];
+  const endEvents = [];
 
   const EVENTS_MAP = {
 
     transitionEndEvents: {
-      'transition'      : 'transitionend',
+      'transition': 'transitionend',
       'WebkitTransition': 'webkitTransitionEnd',
-      'MozTransition'   : 'mozTransitionEnd',
-      'OTransition'     : 'oTransitionEnd',
-      'msTransition'    : 'MSTransitionEnd'
+      'MozTransition': 'mozTransitionEnd',
+      'OTransition': 'oTransitionEnd',
+      'msTransition': 'MSTransitionEnd'
     },
 
     animationEndEvents: {
-      'animation'      : 'animationend',
+      'animation': 'animationend',
       'WebkitAnimation': 'webkitAnimationEnd',
-      'MozAnimation'   : 'mozAnimationEnd',
-      'OAnimation'     : 'oAnimationEnd',
-      'msAnimation'    : 'MSAnimationEnd'
+      'MozAnimation': 'mozAnimationEnd',
+      'OAnimation': 'oAnimationEnd',
+      'msAnimation': 'MSAnimationEnd'
     }
 
   };
 
-  let testEl = document.createElement('div');
-  let style  = testEl.style;
+  const testEl = document.createElement('div');
+  const style = testEl.style;
 
   if (!('AnimationEvent' in window)) {
     delete EVENTS_MAP.animationEndEvents.animation;
@@ -96,11 +97,11 @@ export default (element, animation, cb) => {
     eventHandlers.removeEndEventListener(node, endListener);
     className.remove(node, classNames);
     if (cb) cb();
-  }
+  };
 
   className.remove(node, classNames);
   className.add(node, classNames);
 
   eventHandlers.addEndEventListener(node, endListener);
 
-}
+};

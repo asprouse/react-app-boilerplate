@@ -6,4 +6,4 @@ export default (components, ...args) => {
           .map(component => component.fetchData(...args))
   );
 
-}
+};

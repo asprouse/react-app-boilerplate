@@ -1,11 +1,9 @@
-import React                  from 'react';
-import { PropTypes as Type }  from 'react';
-
+import React from 'react';
+import { PropTypes as Type } from 'react';
 
 export default (fetch) => {
 
   return DecoratedComponent => (
-
 
     class FetchDataDecorator extends React.Component {
 
@@ -15,15 +13,13 @@ export default (fetch) => {
           dispatch: Type.func
         }),
 
-        location     : Type.object,
-        params       : Type.object,
+        location: Type.object,
+        params: Type.object,
         initialRender: Type.bool
-
       };
 
 
       componentDidMount() {
-
         if (this.props.initialRender) return;
 
         const { location, params, store } = this.props;
@@ -36,18 +32,11 @@ export default (fetch) => {
 
       }
 
-
       render() {
-
-        return (
-          <DecoratedComponent {...this.props} />
-        );
-
+        return <DecoratedComponent {...this.props} />;
       }
-
     }
-
 
   );
 
-}
+};

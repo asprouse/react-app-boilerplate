@@ -1,30 +1,27 @@
-import gulp         from 'gulp';
-import webpack      from 'webpack';
-import eslint       from 'eslint/lib/cli';
-import run          from 'run-sequence';
-import gutil        from 'gulp-util';
-import changed      from 'gulp-changed';
-import gulpif       from 'gulp-if';
-import imagemin     from 'gulp-imagemin';
-import { exec }     from 'child_process';
-import del          from 'del';
+import gulp from 'gulp';
+import webpack from 'webpack';
+import eslint from 'eslint/lib/cli';
+import run from 'run-sequence';
+import gutil from 'gulp-util';
+import changed from 'gulp-changed';
+import gulpif from 'gulp-if';
+import imagemin from 'gulp-imagemin';
+import { exec } from 'child_process';
+import del from 'del';
 
-import gulpConfig   from './config/gulp.config.js';
+import gulpConfig from './config/gulp.config.js';
 
+const prodBuildTask = 'build';
+const startDevTask = 'start:dev';
+const startProdTask = 'start:prod';
+const isDevBuild = process.argv.indexOf(startDevTask) !== -1;
+const startTask = isDevBuild ? startDevTask : prodBuildTask;
 
-const prodBuildTask   = 'build';
-const startDevTask    = 'start:dev';
-const startProdTask   = 'start:prod';
-const isDevBuild      = process.argv.indexOf(startDevTask) !== -1;
-const startTask       = isDevBuild ? startDevTask : prodBuildTask;
-
-const config          = gulpConfig(isDevBuild);
-const webpackConfig   = config.webpack.config;
+const config = gulpConfig(isDevBuild);
+const webpackConfig = config.webpack.config;
 const webpackCallback = config.webpack.cb;
 
-
-
-/* Run tasks */
+// Run tasks
 
 gulp.task('default', [startTask]);
 
@@ -41,9 +38,7 @@ gulp.task(startProdTask, done => {
 });
 
 
-
-/* Node servers starter */
-
+// Node servers starter
 const startServer = (serverPath, done) => {
 
   const prodFlag = !isDevBuild ? 'NODE_ENV=production' : '';
@@ -65,9 +60,7 @@ const startServer = (serverPath, done) => {
 };
 
 
-
-/* Build bundles */
-
+// Build bundles
 gulp.task('bundle', done => {
 
   if (isDevBuild) {
@@ -87,13 +80,11 @@ gulp.task('bundle', done => {
 });
 
 
-
-/* Start express servers */
-
+// Start express servers
 gulp.task('server', done => {
 
   const servers = config.server.paths;
-  let queue     = servers.length;
+  let queue = servers.length;
 
   servers.forEach(server => {
     startServer(server);
@@ -103,9 +94,7 @@ gulp.task('server', done => {
 });
 
 
-
-/* Optimize images */
-
+// Optimize images
 gulp.task('images', done => {
 
   gulp.src(config.images.src)
@@ -116,18 +105,15 @@ gulp.task('images', done => {
 
 });
 
-
-
-/* Copy files to `public` */
-
+// Copy files to `public`
 gulp.task('copy', done => {
 
   const files = config.copy.files;
-  let   queue = files.length;
+  let queue = files.length;
 
   files.forEach(file => {
     const from = config.copy.from + file[0];
-    const to   = config.copy.to + (file[1] || file[0]);
+    const to = config.copy.to + (file[1] || file[0]);
     exec(`cp -R ${from} ${to}`, err => {
       if (err) {
         gutil.log(gutil.colors.red(err));
@@ -140,9 +126,7 @@ gulp.task('copy', done => {
 });
 
 
-
-/* Watch statics */
-
+// Watch statics
 gulp.task('watch', () => {
 
   const watchItems = config.watch.files.map(file => config.watch.root + file);
@@ -152,9 +136,7 @@ gulp.task('watch', () => {
 });
 
 
-
-/* Lint scripts */
-
+// Lint scripts
 gulp.task('lint', done => {
 
   eslint.execute('--ext .js,.jsx ./');
@@ -163,9 +145,7 @@ gulp.task('lint', done => {
 });
 
 
-
-/* Clean up before build */
-
+// Clean up before build
 gulp.task('clean', done => {
 
   const items = config.clean.map(dir => dir + '/**/*');

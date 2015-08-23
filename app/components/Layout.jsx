@@ -7,8 +7,8 @@ import Nav from './Nav';
 export default class Layout extends React.Component {
 
   static propTypes = {
-    children : Type.object,
-    location : Type.object
+    children: Type.object,
+    location: Type.object
   };
 
   render() {

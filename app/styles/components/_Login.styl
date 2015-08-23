@@ -1,29 +1,54 @@
 #login
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
+  position absolute
+  top 50%
+  left 50%
+  transform translate(-50%, -50%)
+  max-width 45rem
+  width 100%
 
   form
-    margin: 1rem 0
+    margin 1rem 0
+
 
     input
+      text-indent 2rem
+      appearance none
+      border-radius 2.5rem
+      background-color #fff
+      font-family 'MuseoSans', Helvetica, Arial, sans-serif
+      border-style solid
+      border-width 1px
+      border-color #cccccc
+      box-shadow inset 0 1px 2px rgba(0,0,0,0.1)
+      color rgba(0,0,0,0.75)
+      display block
+      font-size 1.8rem
+      margin 0 0 1rem 0
+      padding 0.5rem
+      height 5rem
+      width 100%
 
-    .button-wrapper
-      position: relative
-      display: inline-block
-      width: 18%
+      &:focus
+        background #fafafa
+        border-color #999999
+        outline none
 
-      @media mqPhone
-        width: 100%
+      box-sizing border-box
+      transition box-shadow 0.45s,border-color 0.45s ease-in-out
 
-      button
-        width: 100%
-        margin: 0
-        padding: 1rem 1.5rem
-        border-radius: 0
-        color: #fff
 
-        @media mqPhone
-          font-size: .8rem
-          padding: .5rem 1rem
+
+
+    button
+      @extend $rounded-button
+      width 100%
+      padding-top 1.8rem
+      padding-bottom 1.9rem
+      padding-right 0
+      padding-left 0
+      font-size 2rem
+      display inline-block
+      margin 0 0 1.25rem
+
+
+

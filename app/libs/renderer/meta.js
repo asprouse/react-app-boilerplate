@@ -16,14 +16,14 @@
 
 export default (props) => {
   const base = {
-    title        : 'Isomorphic Comments',
-    description  : 'Comments made isomorphic!',
-    keywords     : 'flux react redux rails',
-    type         : 'website',
-    siteName     : 'Isomorphic Comments'
+    title: 'Isomorphic Comments',
+    description: 'Comments made isomorphic!',
+    keywords: 'flux react redux rails',
+    type: 'website',
+    siteName: 'Isomorphic Comments'
   };
 
-  let meta = {
+  const meta = {
     ...props,
     ...base,
     url: props.appHost + props.fullPath,
@@ -37,8 +37,10 @@ export default (props) => {
       break;
 
     case 'not-found':
-      meta.title       = `Oops! Nothing here.`;
+      meta.title = `Oops! Nothing here.`;
       meta.description = '404';
+      break;
+    default:
   }
 
   if (meta.title !== base.title) {
@@ -46,5 +48,4 @@ export default (props) => {
   }
 
   return meta;
-
-}
+};

@@ -9,7 +9,7 @@ import nib from 'nib';
 import jeet from 'jeet';
 import rupture from 'rupture';
 
-import appConfig    from '../config/server';
+import appConfig from '../config/server';
 import vendorDeps from './vendors';
 
 const ENTRY_POINT = './app/client.js';
@@ -17,7 +17,7 @@ const BABEL_LOADER = 'babel?stage=0';
 
 
 function fileName(name, dev) {
-  return '[' + name + ']' + (dev ? '' : '-[chunkhash]') + '.js'
+  return '[' + name + ']' + (dev ? '' : '-[chunkhash]') + '.js';
 }
 
 function appEntry(dev) {
@@ -26,10 +26,10 @@ function appEntry(dev) {
       `webpack-dev-server/client?${appConfig.devEndpoint}`,
       'webpack/hot/only-dev-server',
       ENTRY_POINT
-    ]
+    ];
   }
 
-  return ENTRY_POINT
+  return ENTRY_POINT;
 }
 
 
@@ -93,7 +93,7 @@ function jsLoader(dev) {
 }
 
 function styleLoader(loader, dev) {
-  return dev ? 'style!' + loader : Extract.extract('style', loader)
+  return dev ? 'style!' + loader : Extract.extract('style', loader);
 }
 
 

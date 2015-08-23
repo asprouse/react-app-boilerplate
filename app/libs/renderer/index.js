@@ -14,7 +14,7 @@ import reducers from 'app/reducers';
 
 import config from 'config/server';
 
-import RouterUtil from './RouterUtil'
+import RouterUtil from './RouterUtil';
 
 
 const baseContext = {
@@ -40,7 +40,7 @@ export default async (req, res) => {
     const location = new Location(req.path, req.query);
     const routes = createRoutes({ store });
 
-    const { initialState, transition, routeName }  = await RouterUtil.run(routes, location);
+    const { initialState, transition, routeName } = await RouterUtil.run(routes, location);
 
     // Handle redirect
     if (transition.isCancelled) {
@@ -67,9 +67,7 @@ export default async (req, res) => {
     };
 
     res.send(template(templateContext));
-
   } catch (err) {
     res.status(500).send(err.stack);
   }
-
-}
+};

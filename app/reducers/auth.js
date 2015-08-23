@@ -1,14 +1,14 @@
 /* eslint no-shadow: 0 */
 
-import * as actionTypes  from '../constants/AuthConstants';
+import * as actionTypes from '../constants/AuthConstants';
 
 
 const initialState = {
-  type      : null,
-  user      : null,
+  type: null,
+  user: null,
   isLoggedIn: false,
-  errors    : null,
-  isLoading : false
+  errors: null,
+  isLoading: false
 };
 
 export default function auth(state = initialState, action) {
@@ -22,18 +22,18 @@ export default function auth(state = initialState, action) {
         type,
         user,
         isLoggedIn: true,
-        errors    : null,
-        isLoading : false
+        errors: null,
+        isLoading: false
       };
 
 
     case actionTypes.AUTH_LOGIN_REQUESTED:
       return {
         type,
-        user      : null,
+        user: null,
         isLoggedIn: false,
-        errors    : null,
-        isLoading : true
+        errors: null,
+        isLoading: true
       };
 
 
@@ -42,8 +42,8 @@ export default function auth(state = initialState, action) {
         type,
         user,
         isLoggedIn: true,
-        errors    : null,
-        isLoading : false
+        errors: null,
+        isLoading: false
       };
 
 
@@ -51,19 +51,19 @@ export default function auth(state = initialState, action) {
       return {
         type,
         errors,
-        user      : null,
+        user: null,
         isLoggedIn: false,
-        isLoading : false
+        isLoading: false
       };
 
 
     case actionTypes.AUTH_LOGGED_OUT:
       return {
         type,
-        user      : null,
+        user: null,
         isLoggedIn: false,
-        errors    : null,
-        isLoading : false
+        errors: null,
+        isLoading: false
       };
 
 

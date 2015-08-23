@@ -1,6 +1,6 @@
-import apiCall            from 'app/libs/apiCall';
+import apiCall from 'app/libs/apiCall';
 
-import * as actionTypes   from '../constants/AuthConstants';
+import * as actionTypes from '../constants/AuthConstants';
 
 
 export function setLoggedInState(user) {
@@ -15,15 +15,14 @@ export function setLoggedInState(user) {
 export function login({ email, password, router }) {
 
   return dispatch => {
-
     dispatch({
       type: actionTypes.AUTH_LOGIN_REQUESTED
     });
 
     return apiCall({
       method: 'POST',
-      path  : '/login',
-      data  : { email, password }
+      path: '/login',
+      data: { email, password }
     })
       .then(res => {
         dispatch({
@@ -35,11 +34,37 @@ export function login({ email, password, router }) {
       })
       .catch(res => {
         dispatch({
-          type  : actionTypes.AUTH_LOGIN_FAILED,
+          type: actionTypes.AUTH_LOGIN_FAILED,
           errors: {
             code: res.status,
             data: res.data
           }
+        });
+      });
+  };
+}
+
+export function getUser() {
+
+  return dispatch => {
+
+    dispatch({
+      type: actionTypes.AUTH_GET_USER
+    });
+
+    return apiCall({
+      method: 'POST',
+      path: '/users/me'
+    })
+      .then(res => {
+        dispatch({
+          type: actionTypes.AUTH_GET_USER_SUCCEED,
+          user: res.data
+        });
+      })
+      .catch(() => {
+        dispatch({
+          type: actionTypes.AUTH_GET_USER_FAILED
         });
       });
 

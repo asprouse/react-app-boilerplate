@@ -8,17 +8,17 @@ const scrollTo = (element, params = {}) => {
     node = element;
   }
 
-  let root = document.body.scrollTop ? document.body : document.documentElement;
+  const root = document.body.scrollTop ? document.body : document.documentElement;
 
-  const tick       = 10;
-  const duration   = params.duration || 200;
-  const padding    = params.padding || 0;
-  const toBottom   = params.toBottom || false;
-  const cb         = params.cb || false;
-  const side       = toBottom ? 'bottom' : 'top';
-  const to         = node ? (node.getBoundingClientRect()[side] + root.scrollTop) : 0;
+  const tick = 10;
+  const duration = params.duration || 200;
+  const padding = params.padding || 0;
+  const toBottom = params.toBottom || false;
+  const cb = params.cb || false;
+  const side = toBottom ? 'bottom' : 'top';
+  const to = node ? (node.getBoundingClientRect()[side] + root.scrollTop) : 0;
   const difference = to - root.scrollTop;
-  const perTick    = difference / duration * tick;
+  const perTick = difference / duration * tick;
 
   setTimeout(() => {
     root.scrollTop += perTick;
@@ -44,6 +44,6 @@ const scrollTo = (element, params = {}) => {
     });
   }, tick);
 
-}
+};
 
 export default scrollTo;
