@@ -1,6 +1,6 @@
 /* eslint no-console: 0 */
 import Hapi from 'hapi';
-import Authentication from './authentication';
+import controllers from './controllers';
 import hapiAuthCookie from 'hapi-auth-cookie';
 
 // Create a server with a host and port
@@ -32,27 +32,22 @@ server.route([
   {
     method: 'POST',
     path: '/login',
-    config: Authentication.login
+    config: controllers.login
   },
   {
     method: 'GET',
     path: '/logout',
-    config: Authentication.logout
+    config: controllers.logout
   },
   {
     method: 'POST',
     path: '/register',
-    config: Authentication.register
+    config: controllers.register
   },
   {
     method: 'GET',
-    path: '/test',
-    config: {
-      auth: 'session',
-      handler: (request, reply) => {
-        return reply({ success: true });
-      }
-    }
+    path: '/users/me',
+    config: controllers.getUser
   }
 ]);
 

@@ -56,7 +56,7 @@ function findByIndex(index, value, includePassword) {
 }
 
 function findById(userId) {
-  return removePassword(getUser(userId));
+  return getUser(userId).then(removePassword);
 }
 
 function update(user) {

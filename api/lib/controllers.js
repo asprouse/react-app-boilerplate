@@ -67,4 +67,24 @@ const register = {
   }
 };
 
-export default { login, logout, register };
+
+const getUser = {
+  auth: 'session',
+  handler: (request, reply) => {
+    const id = request.auth.credentials.id;
+
+    Users.findById(id).then((user) => {
+      if (user) {
+        return reply(user);
+      }
+      reply().code(500);
+    }, reply);
+  }
+};
+
+export default {
+  login,
+  logout,
+  register,
+  getUser
+};
