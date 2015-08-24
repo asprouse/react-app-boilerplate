@@ -4,16 +4,13 @@ import mockRedis from './common/mockRedis';
 
 
 describe('Domains', () => {
-  let redis;
+  const redis = mockRedis();
+  Domains.setRedis(redis);
 
   const host1 = 'fairtread.com';
   const origin1 = 'fairtread.com.s3-website-us-east-1.amazonaws.com';
   const domain1 = { host: host1, origin: origin1 };
 
-  beforeEach(() => {
-    redis = mockRedis();
-    Domains.setRedis(redis);
-  });
 
   describe('create', () => {
     it('create a domain', () => {
@@ -29,10 +26,7 @@ describe('Domains', () => {
     });
 
     it('create fails when host is already in use', () => {
-      return Domains.create(domain1)
-        .then(() => {
-          return Domains.create({ host: host1, origin: 'whatever.whatever.biz' });
-        })
+      return Domains.create({ host: host1, origin: 'whatever.whatever.biz' })
         .then(() => {
           assert.fail();
         }, (err) => {
