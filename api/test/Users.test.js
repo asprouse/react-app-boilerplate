@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import Users from '../lib/Users';
-import FakeRedis from './common/FakeRedis';
+import mockRedis from './common/mockRedis';
 
 
 describe('Users', () => {
@@ -11,7 +11,7 @@ describe('Users', () => {
   const user1 = { email: email1, password: password1 };
 
   beforeEach(() => {
-    redis = new FakeRedis();
+    redis = mockRedis();
     Users.setRedis(redis);
   });
 
@@ -21,8 +21,17 @@ describe('Users', () => {
         assert.isNotNull(user);
         assert.equal(user.email, email1);
         assert.notProperty(user, 'password');
-        assert.property(redis.state, 'ft:user:' + user.id);
-        assert.property(redis.state, 'ft:user-email:' + user.email);
+
+
+        const userKey = redis.getAsync('ft:user:' + user.id).then(user => {
+          assert(user, 'user was not set')
+        });
+
+        const emailIndex = redis.getAsync('ft:user-email:' + user.email).then(userId => {
+          assert.equal(userId, user.id, 'email index was not set properly');
+        });
+
+        return Promise.all([userKey, emailIndex]);
       });
     });
 

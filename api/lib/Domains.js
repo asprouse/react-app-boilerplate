@@ -25,18 +25,16 @@ function setDomain(domain) {
 }
 
 function getDomain(host) {
-  return redis.get(domainKey(host))
+  return redis.getAsync(domainKey(host))
     .then(domainStr => domainStr ? JSON.parse(domainStr) : null);
 }
 
 function indexFields(domain) {
-  const pipeline = redis.pipeline();
   INDEXED_FIELDS.forEach((field) => {
     if (domain[field]) {
-      pipeline.set(indexKey(field, domain[field]), domain.host);
+      redis.set(indexKey(field, domain[field]), domain.host);
     }
   });
-  pipeline.exec();
 }
 
 // Public methods

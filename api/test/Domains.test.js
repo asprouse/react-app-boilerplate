@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import Domains from '../lib/Domains';
-import FakeRedis from './common/FakeRedis';
+import mockRedis from './common/mockRedis';
 
 
 describe('Domains', () => {
@@ -11,7 +11,7 @@ describe('Domains', () => {
   const domain1 = { host: host1, origin: origin1 };
 
   beforeEach(() => {
-    redis = new FakeRedis();
+    redis = mockRedis();
     Domains.setRedis(redis);
   });
 
@@ -20,7 +20,11 @@ describe('Domains', () => {
       return Domains.create(domain1).then((domain) => {
         assert.isNotNull(domain);
         assert.equal(domain.host, host1);
-        assert.property(redis.state, 'ft:domain:' + domain.host);
+
+        return redis.getAsync('ft:domain:' + domain.host).then(result => {
+          assert(result);
+        });
+
       });
     });
 

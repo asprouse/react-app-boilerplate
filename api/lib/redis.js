@@ -1,2 +1,4 @@
-import Redis from 'ioredis';
-export default new Redis();
+import Redis from 'redis';
+import Promise from 'bluebird';
+
+export default Promise.promisifyAll(Redis.createClient());

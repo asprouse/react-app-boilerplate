@@ -34,24 +34,22 @@ function setUser(user) {
 }
 
 function getUser(userId) {
-  return redis.get(userKey(userId))
+  return redis.getAsync(userKey(userId))
     .then(userStr => userStr ? JSON.parse(userStr) : null);
 }
 
 function indexFields(user) {
-  const pipeline = redis.pipeline();
   INDEXED_FIELDS.forEach((field) => {
     if (user[field]) {
-      pipeline.set(indexKey(field, user[field]), user.id);
+      redis.set(indexKey(field, user[field]), user.id);
     }
   });
-  pipeline.exec();
 }
 
 // Public methods
 
 function findByIndex(index, value, includePassword) {
-  return redis.get(indexKey(index, value))
+  return redis.getAsync(indexKey(index, value))
     .then(userId => userId ? getUser(userId, includePassword) : null);
 }
 
