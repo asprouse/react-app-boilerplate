@@ -4,15 +4,15 @@ import requireRedis from './common/requireRedis';
 
 describe('Users', function() {
 
-  const email1 = 'test@foo.com';
-  const password1 = 'asdf123';
-  const user1 = { email: email1, password: password1 };
-
   requireRedis(function(){
     Users.setRedis(redis);
   });
 
   describe('create', function() {
+    const email1 = 'test@foo.com';
+    const password1 = 'asdf123';
+    const user1 = { email: email1, password: password1 };
+
     requireRedis();
 
     it('create a user', function() {
@@ -45,23 +45,24 @@ describe('Users', function() {
     });
   });
 
-  const email2 = 'test2@foo.com';
-  const password2 = 'jkl;456';
-  const user2 = { email: email2, password: password2 };
 
   describe('authenticate', function() {
+    const email2 = 'test2@foo.com';
+    const password2 = 'jkl;456';
+    const user2 = { email: email2, password: password2 };
+
     requireRedis(function() {
       return Users.create(user2);
     });
 
     it('returns a user when auth is successful', function() {
-      return Users.authenticate(email1, password1).then((user) => {
+      return Users.authenticate(email2, password2).then((user) => {
         assert.isNotNull(user);
       });
     });
 
     it('returns false when auth fails', function() {
-      return Users.authenticate(email1, 'poopy').then((user) => {
+      return Users.authenticate(email2, 'poopy').then((user) => {
         assert.isFalse(user);
       });
     });
