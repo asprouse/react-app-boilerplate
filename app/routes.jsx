@@ -6,6 +6,7 @@ import Home from './components/Home';
 import Login from './components/Login/LoginContainer';
 import Logout from './components/Logout/Logout';
 import NotFound from './components/NotFound/NotFound';
+import Dashboard from './components/Dashboard';
 
 
 export default (context) => (
@@ -15,6 +16,7 @@ export default (context) => (
     <Route name="home" path="/" component={Home} />
     <Route name="login" path="/login" component={Login} context={context} />
     <Route name="logout" path="/logout" component={Logout} />
+    <Route name="dashboard" path="/dashboard" component={Dashboard} />
 
     <Route name="not-found" path="*" component={NotFound} />
 

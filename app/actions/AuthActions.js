@@ -29,7 +29,7 @@ export function login({ email, password, router }) {
           type: actionTypes.AUTH_LOGIN_SUCCEED,
           user: res.data
         });
-        router.transitionTo('/');
+        router.transitionTo('/dashboard');
 
       })
       .catch(res => {

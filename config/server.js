@@ -32,7 +32,7 @@ export default {
     base: {
       title: 'Fairtread',
       description: 'Crowdfunding you & your web.',
-      keywords: 'crowdfunding adblock 402 micropayments!!',
+      keywords: 'crowdfunding adblock 402 micropayments',
       type: 'website',
       siteName: 'Fairtread'
     },
