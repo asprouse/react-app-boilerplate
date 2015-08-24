@@ -14,7 +14,7 @@ export default class RedisProcess {
   }
 
   start() {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       const child = this.child = spawn('redis-server', ['--port', this.port]);
 
       child.stdout.on('data', function (data) {
@@ -23,9 +23,10 @@ export default class RedisProcess {
         }
       });
 
-      child.on('exit', function (exitCode) {
-        console.log("RedisProcess exited with code: " + exitCode);
+      child.on('error', function (error) {
+        reject(error);
       });
+
     });
   }
 
