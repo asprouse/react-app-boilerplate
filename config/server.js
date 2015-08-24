@@ -26,5 +26,22 @@ export default {
 
 
   googleAnalyticsId: 'UA-36704000-7',
-  facebookAppId: '123456789012345'
+  facebookAppId: '123456789012345',
+
+  meta: {
+    base: {
+      title: 'Fairtread',
+      description: 'Crowdfunding you & your web.',
+      keywords: 'crowdfunding adblock 402 micropayments!!',
+      type: 'website',
+      siteName: 'Fairtread'
+    },
+    login: {
+      title: 'login'
+    },
+    'not-found': {
+      title: 'Oops! Nothing here.',
+      description: '404'
+    }
+  }
 };
