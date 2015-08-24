@@ -42,7 +42,8 @@ gulp.task(startProdTask, done => {
 const startServer = (serverPath, done) => {
 
   const prodFlag = !isDevBuild ? 'NODE_ENV=production' : '';
-  const server = exec(`NODE_PATH=. ${prodFlag} node ${serverPath}`);
+  const cmd = isDevBuild && serverPath !== config.devServer ? 'nodemon --watch config --watch app' : 'node';
+  const server = exec(`NODE_PATH=. ${prodFlag} ${cmd} ${serverPath}`);
 
   server.stdout.on('data', data => {
     if (done && data === 'Webpack: Done!') {
