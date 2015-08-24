@@ -77,12 +77,22 @@ export function getUser() {
 }
 
 
-export function logout({ router, backPath }) {
+export function logout({ router }) {
   return dispatch => {
-    dispatch({
-      type: actionTypes.AUTH_LOGGED_OUT
-    });
-    router.transitionTo('/logout', null, { backPath });
+
+    return Api.call({
+      method: 'GET',
+      path: '/logout'
+    })
+      .then(res => {
+        dispatch({
+          type: actionTypes.AUTH_LOGGED_OUT,
+          user: res.data
+        });
+
+        router.transitionTo('/');
+      });
+
   };
 
 }

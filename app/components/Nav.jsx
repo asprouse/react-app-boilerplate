@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import { logout } from '../actions/AuthActions';
 
 @connect(state => ({ auth: state.auth }))
 
@@ -10,6 +11,16 @@ export default class Nav extends React.Component {
     dispatch: React.PropTypes.func.isRequired
   };
 
+  static contextTypes = {
+    router: React.PropTypes.object
+  };
+
+  handleLogout = (e) => {
+    e.preventDefault();
+    const { router } = this.context;
+    this.props.dispatch(logout({ router }));
+  };
+
   render() {
     let right;
 
@@ -17,7 +28,7 @@ export default class Nav extends React.Component {
       right = (
         <div className="right">
           <div className="logout">
-            <Link to="/logout">Logout</Link>
+            <a href="#" onClick={this.handleLogout}>Logout</a>
           </div>
         </div>
       );
