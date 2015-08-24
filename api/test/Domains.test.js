@@ -1,16 +1,14 @@
 import { assert } from 'chai';
 import Domains from '../lib/Domains';
-import mockRedis from './common/mockRedis';
-
 
 describe('Domains', () => {
-  const redis = mockRedis();
-  Domains.setRedis(redis);
-
   const host1 = 'fairtread.com';
   const origin1 = 'fairtread.com.s3-website-us-east-1.amazonaws.com';
   const domain1 = { host: host1, origin: origin1 };
 
+  before(() => {
+    Domains.setRedis(redis);
+  });
 
   describe('create', () => {
     it('create a domain', () => {

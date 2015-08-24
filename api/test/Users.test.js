@@ -1,15 +1,15 @@
 import { assert } from 'chai';
 import Users from '../lib/Users';
-import mockRedis from './common/mockRedis';
-
 
 describe('Users', () => {
-  const redis = mockRedis();
-  Users.setRedis(redis);
 
   const email1 = 'test@foo.com';
   const password1 = 'asdf123';
   const user1 = { email: email1, password: password1 };
+
+  before(() => {
+    Users.setRedis(redis);
+  });
 
   describe('create', () => {
     it('create a user', () => {
